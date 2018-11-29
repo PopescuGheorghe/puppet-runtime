@@ -23,9 +23,6 @@ component "yaml-cpp" do |pkg, settings, platform|
   elsif platform.is_macos?
     cmake_toolchain_file = ""
     cmake = "/usr/local/bin/cmake"
-  elsif platform.name =~ /fedora-29/
-    cmake_toolchain_file = ''
-    cmake = '/usr/bin/cmake'
   elsif platform.is_windows?
     make = "#{settings[:gcc_bindir]}/mingw32-make"
     mkdir = '/usr/bin/mkdir'
@@ -33,6 +30,9 @@ component "yaml-cpp" do |pkg, settings, platform|
     pkg.environment "CYGWIN", settings[:cygwin]
     cmake = "C:/ProgramData/chocolatey/bin/cmake.exe -G \"MinGW Makefiles\""
     cmake_toolchain_file = "-DCMAKE_TOOLCHAIN_FILE=#{settings[:tools_root]}/pl-build-toolchain.cmake"
+  elsif settings[:use_os_toolchain]
+    cmake_toolchain_file = ''
+    cmake = '/usr/bin/cmake'
   end
 
   # Build Commands

@@ -220,6 +220,9 @@ if platform.name =~ /^redhatfips-7-.*/
   proj.setting(:system_openssl, true)
 end
 
+proj.setting(:use_os_toolchain, true) if platform.name =~ /fedora-29|el-8/
+
+
 # Commmon platform-specific settings for all agent branches:
 platform = proj.get_platform
 
