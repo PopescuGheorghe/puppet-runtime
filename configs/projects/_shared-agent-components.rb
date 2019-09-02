@@ -14,6 +14,7 @@ end
 proj.component 'runtime-agent'
 
 unless proj.settings[:system_openssl]
+  proj.component "openssl-fips-2.0.16" if platform.name =~ /fips/
   proj.component "openssl-#{proj.openssl_version}"
 end
 
