@@ -9,6 +9,9 @@ component "boost" do |pkg, settings, platform|
   if platform.is_solaris?
     pkg.apply_patch 'resources/patches/boost/0001-fix-build-for-solaris.patch'
     pkg.apply_patch 'resources/patches/boost/force-SONAME-option-for-solaris.patch'
+    if platform.architecture == 'sparc'
+      pkg.apply_patch 'resources/patches/boost/fix-solaris-sparc-b2-build.patch'
+    end
   end
 
   if platform.is_cisco_wrlinux?
@@ -73,7 +76,7 @@ component "boost" do |pkg, settings, platform|
     end
     gpp = "/opt/pl-build-tools/bin/#{settings[:platform_triple]}-g++"
     with_toolset = toolset
-    pkg.environment("LDFLAGS", settings[:ldflags]) if platform.name =~ /solaris-10/
+    pkg.environment("LD_LIBRARY_PATH" => '/opt/pl-build-tools/lib') if platform.name =~ /solaris-10/
   elsif platform.is_windows?
     arch = platform.architecture == "x64" ? "64" : "32"
     pkg.environment "PATH" => "C:/tools/mingw#{arch}/bin:$$PATH"

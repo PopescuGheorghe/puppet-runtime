@@ -1,0 +1,25 @@
+From 74588e5bb00b5382c3f2f48b8888448ee00e6adf Mon Sep 17 00:00:00 2001
+From: gimmy <gheorghe.popescu@puppet.com>
+Date: Wed, 20 May 2020 16:34:26 +0300
+Subject: [PATCH] (PATCH) remove -std=c++11
+
+---
+ tools/build/src/engine/build.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/build/src/engine/build.sh b/tools/build/src/engine/build.sh
+index 41af3715e..6cb0bfe3e 100755
+--- a/tools/build/src/engine/build.sh
++++ b/tools/build/src/engine/build.sh
+@@ -79,7 +79,7 @@ test_cxx11 ()
+ {
+     if ! test $NO_CXX11_CHECK ; then
+         case $1 in
+-            gcc) ( ${CXX:=g++} -x c++ -std=c++11 check_cxx11.cpp && rm -f a.out ) 1>/dev/null 2>/dev/null ;;
++            gcc) ( ${CXX:=g++} -x c++ -std=c++0x check_cxx11.cpp && rm -f a.out ) 1>/dev/null 2>/dev/null ;;
+             intel-darwin) ( ${CXX:=icc} -xc++ check_cxx11.cpp && rm -f a.out ) 1>/dev/null 2>/dev/null ;;
+             intel-linux) ( ${CXX:=icc} -xc++ check_cxx11.cpp && rm -f a.out ) 1>/dev/null 2>/dev/null ;;
+             vacpp) ( ${CXX:=xlC_r} check_cxx11.cpp && rm -f a.out ) 1>/dev/null 2>/dev/null ;;
+--
+2.25.0
+
