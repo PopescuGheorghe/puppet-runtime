@@ -70,6 +70,7 @@ component "boost" do |pkg, settings, platform|
     b2flags = "define=_XOPEN_SOURCE=600"
     if platform.architecture == "sparc"
       b2flags = "#{b2flags} instruction-set=v9"
+      pkg.environment "CXX" => gpp
     end
     gpp = "/opt/pl-build-tools/bin/#{settings[:platform_triple]}-g++"
     with_toolset = toolset
